@@ -1,0 +1,123 @@
+---
+layout: page
+title: "About"
+description: "Hey, 我是姚小娇."
+header-img: "img/about-bg.jpg"
+---
+
+<!-- Language Selector -->
+<select class="sel-lang" onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
+    <option value="0" selected> 中文 Chinese </option>
+    <option value="1"> 英文 English </option>
+</select>
+
+<!-- Chinese Version -->
+<div class="zh post-container">
+
+    <!--copied from markdown -->
+    <blockquote><p>热爱技术，热爱生活</p></blockquote>
+
+    <p>Hey，我是<strong>姚小娇</strong>，程序员 &amp; 又萌又漂亮的妹纸一只。现就读于<a href="http://www.gdut.edu.cn">广东工业大学自动化学院</a>。2015级硕士研究生</p>
+    
+    <h5>简历</h5>
+
+    <ul>
+    <li><a href="/attach/1705-yxj-zh.pdf">201705_yxj_zh</a></li>
+    </ul>
+</div>
+
+<!-- English Version -->
+<div class="en post-container">
+    <blockquote><p>Life is too short to talk, show me code.</p></blockquote>
+
+    <p>Hi, I am <strong>Yao xiaojiao(姚小娇)</strong>，you can call me <strong>jiaojiao</strong>. I'm an engineer &amp; beautiful girl. I've been studying for Recommander System in <a href="http://www.gdut.edu.cn">Guangdong University of Technology.</p>
+    
+    <h5>Resumes</h5>
+
+    <ul>
+    <li><a href="/attach/1705-yxj-zh.pdf">201705_yxj_zh</a></li>
+    </ul>
+</div>
+
+<!-- Handle Language Change -->
+<script type="text/javascript">
+    // get nodes
+    var $zh = document.querySelector(".zh");
+    var $en = document.querySelector(".en");
+    var $select = document.querySelector("select");
+
+    // bind hashchange event
+    window.addEventListener('hashchange', _render);
+
+    // handle render
+    function _render(){
+        var _hash = window.location.hash;
+        // en
+        if(_hash == "#en"){
+            $select.selectedIndex = 1;
+            $en.style.display = "block";
+            $zh.style.display = "none";
+        // zh by default
+        }else{
+            // not trigger onChange, otherwise cause a loop call.
+            $select.selectedIndex = 0;
+            $zh.style.display = "block";
+            $en.style.display = "none";
+        }
+    }
+
+    // handle select change
+    function onLanChange(index){
+        if(index == 0){
+            window.location.hash = "#zh"
+        }else{
+            window.location.hash = "#en"
+        }
+    }
+
+    // init
+    _render();
+</script>
+
+
+{% if site.netease_username %}
+<!-- 网易云跟帖评论 -->
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+	var netease_username = "{{site.netease_username}}";
+	var cloudTieConfig = {
+	  url: document.location.href, 
+	  sourceId: "",
+	  productKey: netease_username,
+	  target: "cloud-tie-wrapper"
+	};
+	var yunManualLoad = true;
+	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+{% endif %}
+
+
+{% if site.disqus_username %}
+<!-- disqus 评论框 start -->
+<div class="comment">
+    <div id="disqus_thread" class="disqus-thread">
+
+    </div>
+</div>
+<!-- disqus 评论框 end -->
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "{{site.disqus_username}}";
+    var disqus_identifier = "{{site.disqus_username}}/{{page.url}}";
+    var disqus_url = "{{site.url}}{{page.url}}";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+{% endif %}
